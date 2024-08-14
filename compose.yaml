@@ -1,0 +1,21 @@
+services:
+  php:
+    build: ./php/
+    volumes:
+      - ./www/:/var/www/html/
+    networks:
+      - mysql_8_0
+  apache:
+    build: ./apache/
+    depends_on:
+      - php
+    ports:
+      - '8973:80'
+    volumes:
+      - ./www/:/var/www/html
+    networks:
+      - mysql_8_0
+networks:
+  mysql_8_0:
+    name: mysql_mysql_8_0
+    external: true
